@@ -21,12 +21,13 @@ html, body {
 }
 
 body, input, textarea, button {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', 'Noto Sans KR', sans-serif;
   font-size: $base-font-size;
 }
 
 body {
   background: $secondary-color;
+  word-break: keep-all;
 }
 
 h1 {
