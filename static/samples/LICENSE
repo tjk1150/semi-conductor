@@ -1,0 +1,8 @@
+Audio samples in this directory are from Sonatina Symphonic Orchestra (SSO),
+created by Mattias Westlund (2011) and maintained at https://github.com/peastman/sso
+
+Licensed under the Creative Commons Sampling Plus 1.0 license:
+https://creativecommons.org/licenses/sampling+/1.0/
+
+The original WAV/FLAC samples were converted to MP3 (128 kbps) for browser
+playback. File names follow the mapping in src/assets/samples.json.

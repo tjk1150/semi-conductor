@@ -20,6 +20,7 @@ under the License.
 */
 
 
+import { t } from './i18n';
 import config from '../config.js';
 import { hide, show, constrain } from './helpers';
 import Orchestra from './orchestra';
@@ -55,6 +56,7 @@ export default class Renderer {
       countdownOverlay: document.querySelector('.countdown-overlay'),
       countdownText: document.querySelector('.countdown-text'),
       songProgress: document.querySelector('.song-progress'),
+      errorTitle: document.querySelector('.error-title'),
       errorText: document.querySelector('.error-text'),
       conductingOverlay: document.querySelector('.conducting-overlay')
     }
@@ -80,9 +82,11 @@ export default class Renderer {
       this.elems.html.classList.add('is-mobile');
       this.elems.body.classList.add('is-mobile');
       show(this.pages.error, 'flex');
-      this.elems.errorText.innerHTML = `This experience works best in a
-        desktop browser – your orchestra is waiting for you there.
-      <br><br><a class="button button-large" href='mailto:?subject=${encodeURIComponent("Note to self: check out Semi-Conductor")}&body=${encodeURIComponent("Dear me, remember earlier today you were checking out that conducting experience? Here is the link for it: semiconductor.withgoogle.com")}'>Email a reminder</a>`;
+      this.elems.errorTitle.textContent = t('mobileTitle');
+      const subject = encodeURIComponent(t('mobileEmailSubject'));
+      const body = encodeURIComponent(t('mobileEmailBody', { url: config.site.url }));
+      this.elems.errorText.innerHTML = `${t('mobileMessage')}
+      <br><br><a class="button button-large" href='mailto:?subject=${subject}&body=${body}'>${t('mobileEmailButton')}</a>`;
     }
   }
 
@@ -112,7 +116,7 @@ export default class Renderer {
 
     if (progress === 100) {
       // Make button active
-      this.elems.startButton.innerHTML = "Start";
+      this.elems.startButton.innerHTML = t('start');
       this.elems.startButton.disabled = false;
     }
   }
@@ -204,7 +208,7 @@ export default class Renderer {
   renderCalibrationSuccess() {
     this.elems.calibrationOverlay.classList.add('success');
     hide(this.elems.calibrationOverlayImg)
-    document.querySelector('.instructions p').innerHTML = "👍";
+    document.querySelector('.instructions p').innerHTML = t('calibrated');
     document.querySelector('.instructions p').style.transform = "scale(2)";
   }
 
@@ -335,7 +339,8 @@ export default class Renderer {
   /* Called if webcam error */
   renderVideoError() {
     show(this.pages.error, 'flex');
-    this.elems.errorText.innerHTML = "The orchestra needs to see its conductor! Please connect your webcam or allow us to access it, and refresh the page.";
+    this.elems.errorTitle.textContent = t('cameraErrorTitle');
+    this.elems.errorText.innerHTML = t('cameraError');
   }
 
   /* Called when the experience restarts */
@@ -357,7 +362,7 @@ export default class Renderer {
     hide(this.pages.main);
     show(this.pages.start, 'flex');
     this.elems.calibrationOverlay.classList.remove('success');
-    document.querySelector('.instructions p').innerHTML = "Fit your body in frame, Maestro. This is a one person experiment.";
+    document.querySelector('.instructions p').innerHTML = t('fitInFrame');
     document.querySelector('.instructions p').style.transform = "scale(1)";
   }
 }

@@ -20,6 +20,9 @@ under the License.
 */
 
 export default {
+  "site": {
+    "url": "https://semi-conductor-five.vercel.app"
+  },
   "paths": {
     "samplesPath": "/samples/",
     "texturesPath": "/textures/"
